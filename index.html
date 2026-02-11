@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אלי כהן - האיש שלנו בדמשק</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&family=Heebo:wght@800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --accent: #ffd700;
+            --text: #ffffff;
+            --bg: #1a1a1a;
+            --card: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 95%;
+            max-width: 1100px;
+            height: 85vh;
+            position: relative;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            border-bottom: 5px solid var(--accent);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .content-part {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-part {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid #444;
+            background-color: #333;
+        }
+
+        h1 {
+            font-family: 'Heebo', sans-serif;
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-top: 0;
+            border-right: 5px solid var(--accent);
+            padding-right: 15px;
+        }
+
+        .id-card {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--accent);
+        }
+
+        .id-card p {
+            margin: 8px 0;
+            font-size: 1.15rem;
+        }
+
+        ul {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li::before {
+            content: "🔹";
+            margin-left: 10px;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        button {
+            background: var(--accent);
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        button:hover { transform: scale(1.05); }
+        button:disabled { background: #555; cursor: not-allowed; }
+
+        .interesting-fact {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px dashed var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .fact-btn { background: #444; color: white; margin-top: 10px; font-size: 0.9rem; width: fit-content; }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+    <div class="progress-bar" id="progressBar" style="width: 16.6%;"></div>
+
+    <div class="slide active">
+        <div class="content-part">
+            <h1>תעודת זהות: אלי כהן</h1>
+            <div class="id-card">
+                <p><strong>שם מלא:</strong> אליעזר (אלי) כהן</p>
+                <p><strong>תאריך לידה:</strong> 6 בדצמבר 1924</p>
+                <p><strong>מקום לידה:</strong> אלכסנדריה, מצרים</p>
+                <p><strong>הורים:</strong> שאול וסופיה כהן (ממוצא סורי)</p>
+                <p><strong>מקצוע ההורים:</strong> אביו היה סוחר עניבות</p>
+                <p><strong>משפחה:</strong> נשוי לנדיה ואב לשלושה</p>
+            </div>
+            <button class="fact-btn" onclick="toggleFact(0)">💡 פרט מעניין</button>
+            <div class="interesting-fact">בתור ילד במצרים, אלי הצטיין במתמטיקה והיה בעל זיכרון צילומי נדיר שסייע לו רבות בעבודת הריגול.</div>
+        </div>
+        <div class="image-part" style="background-image: url('id_card.jpg');"></div>
+    </div>
+
+    <div class="slide">
+        <div class="content-part">
+            <h1>הפיכתו למרגל</h1>
+            <ul>
+                <li><strong>הזהות הבדויה:</strong> כאמל אמין ת'אבת.</li>
+                <li><strong>הסיפור:</strong> איש עסקים עשיר ונדיב שחוזר לסוריה מארגנטינה.</li>
+                <li><strong>הדירה:</strong> שכר דירה מול המטכ"ל הסורי כדי לעקוב אחר תנועת הבכירים.</li>
+            </ul>
+            <button class="fact-btn" onclick="toggleFact(1)">💡 פרט מעניין</button>
+            <div class="interesting-fact">אלי נאלץ ללמוד ספרדית ברמה גבוהה כדי להישמע אמין כמי שבאמת חי שנים רבות בדרום אמריקה.</div>
+        </div>
+        <div class="image-part" style="background-image: url('kamal.jpg');"></div>
+    </div>
+
+    <div class="slide">
+        <div class="content-part">
+            <h1>בלב האויב</h1>
+            <ul>
+                <li>התיידד עם צמרת הצבא והממשל בסוריה.</li>
+                <li>אירח מסיבות פאר בביתו שבהן הקצינים דיברו חופשי.</li>
+                <li>העביר לישראל מידע קריטי על תוכניות המלחמה.</li>
+            </ul>
+            <button class="fact-btn" onclick="toggleFact(2)">💡 פרט מעניין</button>
+            <div class="interesting-fact">אלי כהן נחשב לכל כך אמין ומקורב לשלטון, עד שהסורים שקלו למנות אותו לתפקיד סגן שר הביטחון.</div>
+        </div>
+        <div class="image-part" style="background-image: url('syria_party.jpg');"></div>
+    </div>
+
+    <div class="slide">
+        <div class="content-part">
+            <h1>מבצע האקליפטוס</h1>
+            <ul>
+                <li>אלי ביקר בבסיסים הסודיים ברמת הגולן.</li>
+                <li>הציע לשתול עצי אקליפטוס כדי להקל על החיילים בחום.</li>
+                <li><strong>התוצאה:</strong> צה"ל ידע להפציץ בדיוק איפה שיש עץ אקליפטוס.</li>
+            </ul>
+            <button class="fact-btn" onclick="toggleFact(3)">💡 פרט מעניין</button>
+            <div class="interesting-fact">עד היום ניתן לראות ברמת הגולן עצי אקליפטוס ותיקים שעומדים בדיוק בנקודות שבהן היו הבונקרים הסוריים.</div>
+        </div>
+        <div class="image-part" style="background-image: url('eucalyptus.jpg');"></div>
+    </div>
+
+    <div class="slide">
+        <div class="content-part">
+            <h1>הלכידה וההקרבה</h1>
+            <ul>
+                <li>נלכד בינואר 1965 בזמן ששידר הודעה לישראל.</li>
+                <li>עונה קשות אך לא הסגיר אף סוכן ישראלי אחר.</li>
+                <li>ישראל הציעה כופר ענק וציוד חקלאי מתקדם תמורתו.</li>
+            </ul>
+            <button class="fact-btn" onclick="toggleFact(4)">💡 פרט מעניין</button>
+            <div class="interesting-fact">מנהיגים רבים בעולם, ביניהם האפיפיור ונשיא צרפת, פנו לסורים בבקשה רשמית לחוס על חייו.</div>
+        </div>
+        <div class="image-part" style="background-image: url('trial.jpg');"></div>
+    </div>
+
+    <div class="slide">
+        <div class="content-part">
+            <h1>סיכום ומורשת</h1>
+            <ul>
+                <li>אלי כהן הוצא להורג בדמשק ב-18 במאי 1965.</li>
+                <li>מדינת ישראל חייבת לו את הניצחון המהיר במלחמת ששת הימים.</li>
+                <li>הוא נשאר סמל עולמי להקרבה ומסירות למולדת.</li>
+            </ul>
+            <button class="fact-btn" onclick="toggleFact(5)">💡 פרט מעניין</button>
+            <div class="interesting-fact">המידע שסיפק אלי כהן נחשב עד היום לאחד ההישגים המודיעיניים הגדולים ביותר בהיסטוריה של הריגול המודרני.</div>
+        </div>
+        <div class="image-part" style="background-image: url('memorial.jpg');"></div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)" disabled>הקודם</button>
+        <button id="nextBtn" onclick="changeSlide(1)">הבא</button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressBar = document.getElementById('progressBar');
+
+    function changeSlide(direction) {
+        slides[currentSlide].classList.remove('active');
+        document.querySelectorAll('.interesting-fact').forEach(fact => fact.style.display = 'none');
+        
+        currentSlide += direction;
+        slides[currentSlide].classList.add('active');
+
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === slides.length - 1;
+        
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        progressBar.style.width = progress + '%';
+    }
+
+    function toggleFact(index) {
+        const facts = document.querySelectorAll('.interesting-fact');
+        const isVisible = facts[index].style.display === 'block';
+        facts[index].style.display = isVisible ? 'none' : 'block';
+    }
+</script>
+
+</body>
+</html>
